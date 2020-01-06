@@ -1,0 +1,28 @@
+@page
+@model AuthorizeModel
+@{
+    ViewData["Title"] = "Authentication";
+
+    if ((bool)User?.Identity?.IsAuthenticated)
+    {
+        <h3>You hava the access to the <b>Confidentials now</b></h3>
+    }
+    else
+    {
+        @await Html.PartialAsync("_AuthorizeFormPartial", Model.Credential);
+    }
+}
+
+@section Scripts
+{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        var settings = {
+            validClass: "is-valid",
+            errorClass: "is-invalid"
+        };
+        $.validator.setDefaults(settings);
+        $.validator.unobtrusive.options = settings;
+    </script>
+}
